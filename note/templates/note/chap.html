@@ -1,11 +1,24 @@
+{% load note_tags %}
+{% load static %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/note.css' %}">
+
+</head>
+
+<body>
+
+
 <h3>This is chape</h3>
 <h3>{{ error }}</h3>
 
 {% for note in notes %}
 
-<h3>{{ note.caption }}</h3>
-<h5>{{ note.content }}</h5>
+{{ note|table_tag_adder|safe }} <br><br>
+
+
 
 {% endfor %}
 
 <h4><a href="{% url 'home' %}">Home</a></h4>
+
+</body>
