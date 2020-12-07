@@ -125,3 +125,9 @@ STATIC_ROOT = os.path.join(BASE_DIR,  'static')
 '''STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]'''
+
+
+try:
+    from .local_settings import *
+except ImportError:
+    print('Here is no local_settings file. you must be on production.')
