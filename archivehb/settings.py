@@ -121,13 +121,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,  'static')
-'''STATICFILES_DIRS = [
+'''STATIC_ROOT = os.path.join(BASE_DIR,  'static')
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]'''
 
 
 try:
     from .local_settings import *
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static'),
+    ]
 except ImportError:
+    STATIC_ROOT = os.path.join(BASE_DIR,  'static')
     print('Here is no local_settings file. you must be on production.')
