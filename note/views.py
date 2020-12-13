@@ -14,6 +14,7 @@ def hsc_note(request, sub, chap_no):
         tem_list = []
         for note in notes:
             if int(note.chapter_no) == chap_no:
+                #print(int(note.chapter_no))
                 tem_list.append(note)
 
         if len(tem_list) > 0:
