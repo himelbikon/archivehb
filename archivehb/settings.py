@@ -133,6 +133,7 @@ try:
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static'),
     ]
+    print('Setup is completed for local server')
 except ImportError:
     STATIC_ROOT = os.path.join(BASE_DIR,  'static')
     print('Here is no local_settings file. you must be on production.')

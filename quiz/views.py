@@ -15,12 +15,21 @@ def hsc_quiz(request, sub, chap_no):
 
 def quiz_result(request):
     if request.method == 'GET':
-        return render(request, 'quiz/result.html', {'method':'This a GET method'})
+        quizs = HSC_Quiz.object.all()
+        return render(request, 'quiz/result.html', {'method':'This a GET method', 'quizs':quizs})
     else:
         result = querydict_to_pythondict(request.POST)
         #print(result)
         return render(request, 'quiz/result.html', {'method':result})
 
 def querydict_to_pythondict(querydict):
-    print(querydict)
-    return '---------------'
+
+    split = str(querydict).split(',')
+    size = split[1:]
+    strip = list(map(lambda x: x.strip(), size))
+    strip[-1] = strip[-1][0:-2]
+
+    for a in strip:
+        print(a)
+
+    return strip
