@@ -12,12 +12,41 @@ def result_shower(mcq):
 
 	title = '<div>' + obj.question + '</div>'
 
-	a = '<div> a) ' + obj.a + '</div>'
+	if obj.answer == obj.a:
+		a = '<div class="right"> a) ' + obj.a + '</div>'
+	elif obj.a == chosen_ans:
+		a = '<div class="wrong"> a) ' + obj.a + '</div>'
+	else:
+		a = '<div> a) ' + obj.a + '</div>'
 
-	b = '<div> a) ' + obj.b + '</div>'
+	if obj.answer == obj.b:
+		b = '<div class="right"> b) ' + obj.b + '</div>'
+	elif obj.b == chosen_ans:
+		b = '<div class="wrong"> b) ' + obj.b + '</div>'
+	else:
+		b = '<div> b) ' + obj.b + '</div>'
 
-	c = '<div> a) ' + obj.c + '</div>'
+	if obj.answer == obj.c:
+		c = '<div class="right"> c) ' + obj.c + '</div>'
+	elif obj.c == chosen_ans:
+		c = '<div class="wrong"> c) ' + obj.c + '</div>'
+	else:
+		c = '<div> c) ' + obj.c + '</div>'
 
-	d = '<div> a) ' + obj.d + '</div>'
+	if obj.answer == obj.d:
+		d = '<div class="right"> d) ' + obj.d + '</div>'
+	elif obj.d == chosen_ans:
+		d = '<div class="wrong"> d) ' + obj.d + '</div>'
+	else:
+		d = '<div> d) ' + obj.d + '</div>'
 
-	return title + a + b + c + d
+	conclusion = '<div> Ans: <b>' + obj.answer + '</b>, you selected: <b>' + chosen_ans + '</b></div>'
+
+	if obj.explanation != '':
+		explanation = '<div> Explanation: ' + obj.explanation + '</div>'
+	else:
+		explanation = ''
+
+
+	return title + a + b + c + d + conclusion + explanation
+

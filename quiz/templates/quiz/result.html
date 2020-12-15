@@ -1,4 +1,12 @@
 {% load quiz_tags %}
+{% load static %}
+
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/quiz_result.css' %}">
+
+</head>
+
+<body>
 
 <h1>This is result page</h1>
 
@@ -7,4 +15,6 @@
 {{ result|result_shower|safe }} <br><br>
 
 {% endfor %}
+
+</body>
 
