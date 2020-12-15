@@ -18,18 +18,22 @@ def quiz_result(request):
         quizs = HSC_Quiz.object.all()
         return render(request, 'quiz/result.html', {'method':'This a GET method', 'quizs':quizs})
     else:
-        result = querydict_to_pythondict(request.POST)
-        #print(result)
-        return render(request, 'quiz/result.html', {'method':result})
+        results = querydict_to_pylist(request.POST)
+        print(results)
+        return render(request, 'quiz/result.html', {'results':results})
 
-def querydict_to_pythondict(querydict):
-
+def querydict_to_pylist(querydict):
     split = str(querydict).split(',')
     size = split[1:]
     strip = list(map(lambda x: x.strip(), size))
     strip[-1] = strip[-1][0:-2]
+    final_list = list(map(list_maker, strip))
+    return final_list
 
-    for a in strip:
-        print(a)
-
-    return strip
+def list_maker(x):
+    arr = []
+    k, h = x.split(':')
+    k, h = int(k.strip()[1:-1]), h.strip()[2:-2]
+    arr.append(k)
+    arr.append(h)
+    return arr
