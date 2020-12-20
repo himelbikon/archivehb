@@ -1,5 +1,6 @@
 {% extends 'home/home_base.html' %}
 {% load static %}
+{% load home_tags %}
 
 {% block content %}
 
@@ -9,22 +10,10 @@
 	</div>
 
 		<script>
-		var dict= {
-			question: 'Who are you stupid? <br>',
-			a: 'a) himel &nbsp&nbsp&nbsp',
-			b: 'b) husss <br>',
-			c: 'c) bisss &nbsp&nbsp&nbsp',
-			d: 'd) dissss <br>',
-			ans: 'answer <br>',
-			exp: 'explanation................................................'
-		};
-		dict.exp = dict.exp.slice(0, 100) + '<br>' + ' '.repeat(150);
-
-		var str = dict.question + dict.a + dict.b + dict.c + dict.d + dict.ans + dict.exp;
-		var arr = [str, str, str, str, str];
 		var index = -1;
 		var tem = '';
 		var arr_i = 0;
+		{{ ten_obj|js_list|safe }}
 
 
 		function nextFn () {
@@ -36,10 +25,10 @@
 		    if (arr_i > arr.length - 1) { arr_i = 0 }
 		  }
 
-		  tem += arr[0][index]
+		  tem += arr[arr_i][index]
 		  document.getElementById("slide").innerHTML ='<div id="slide"><img src="{% static "images/slide.jpg" %}"><div class="slide_text">' + tem + '</div></div>';
 		}
-		setInterval(nextFn, 10);
+		setInterval(nextFn, 100);
 			</script>
 
 {% endblock %}
