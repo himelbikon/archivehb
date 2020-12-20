@@ -1,10 +1,45 @@
-{% extends 'home/base.html' %}
+{% extends 'home/home_base.html' %}
+{% load static %}
 
 {% block content %}
-<h1>This is home</h1>
 
-<h3> Biology 1st</h3>
+	<div id="slide">
+		<img src="{% static 'images/slide.jpg' %}">
+		<div class="slide_text">Welcome!! No time to wait, Let's go!</div>
+	</div>
 
-<h4><a href="{% url 'note:hsc_note' 'bio1' 9 %}">chapter 9</a></h4>
+		<script>
+		var dict= {
+			question: 'Who are you stupid? <br>',
+			a: 'a) himel &nbsp&nbsp&nbsp',
+			b: 'b) husss <br>',
+			c: 'c) bisss &nbsp&nbsp&nbsp',
+			d: 'd) dissss <br>',
+			ans: 'answer <br>',
+			exp: 'explanation................................................'
+		};
+		dict.exp = dict.exp.slice(0, 100) + '<br>' + ' '.repeat(150);
+
+		var str = dict.question + dict.a + dict.b + dict.c + dict.d + dict.ans + dict.exp;
+		var arr = [str, str, str, str, str];
+		var index = -1;
+		var tem = '';
+		var arr_i = 0;
+
+
+		function nextFn () {
+		  index++;
+		  if (index > arr[arr_i].length - 1) {
+		    index = 0;
+		    tem = '';
+		    arr_i += 1;
+		    if (arr_i > arr.length - 1) { arr_i = 0 }
+		  }
+
+		  tem += arr[0][index]
+		  document.getElementById("slide").innerHTML ='<div id="slide"><img src="{% static "images/slide.jpg" %}"><div class="slide_text">' + tem + '</div></div>';
+		}
+		setInterval(nextFn, 10);
+			</script>
 
 {% endblock %}

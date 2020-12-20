@@ -19,7 +19,7 @@ def quiz_result(request):
         return render(request, 'quiz/result.html', {'method':'This a GET method', 'quizs':quizs})
     else:
         results = querydict_to_pylist(request.POST)
-        print(results)
+        #print(results)
         return render(request, 'quiz/result.html', {'results':results})
 
 def querydict_to_pylist(querydict):
