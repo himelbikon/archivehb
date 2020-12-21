@@ -9,13 +9,20 @@
 		<div class="slide_text">Welcome!! No time to wait, Let's go!</div>
 	</div>
 
-	<ul>
-		<li class="front_block">
+		<div class="front_block">
 			<h2>MCQ Exam: HSC Math 1st Paper</h2>
-			<h5><a href="{% url 'quiz:hsc_quiz' 'math1' '01' %}"><h4>Chapter 01</h4></a></h5>
+			<a href="{% url 'quiz:hsc_quiz' 'math1' '01' %}">Chapter 01</a>
+			<a href="{% url 'quiz:hsc_quiz' 'math1' '02' %}">Chapter 02</a>
+			<a href="{% url 'quiz:hsc_quiz' 'math1' '03' %}">Chapter 03</a>
+			<a href="{% url 'quiz:hsc_quiz' 'math1' '04' %}">Chapter 04</a>
+			<a href="{% url 'quiz:hsc_quiz' 'math1' '05' %}">Chapter 05</a>
+			<a href="{% url 'quiz:hsc_quiz' 'math1' '06' %}">Chapter 06</a>
+			<a href="{% url 'quiz:hsc_quiz' 'math1' '07' %}">Chapter 07</a>
+			<a href="{% url 'quiz:hsc_quiz' 'math1' '08' %}">Chapter 08</a>
+			<a href="{% url 'quiz:hsc_quiz' 'math1' '09' %}">Chapter 09</a>
+			<a href="{% url 'quiz:hsc_quiz' 'math1' '10' %}">Chapter 10</a>
+		</div>
 
-		</li>
-	</ul>
 
 		<script>
 			var index = -1;
@@ -35,7 +42,7 @@
 			  tem += arr[arr_i][index]
 			  document.getElementById("slide").innerHTML ='<div id="slide"><img src="{% static "images/slide.jpg" %}"><div class="slide_text">' + tem + '</div></div>';
 			}
-			setInterval(nextFn, 100);
+			setInterval(nextFn, 10);
 		</script>
 
 {% endblock %}
