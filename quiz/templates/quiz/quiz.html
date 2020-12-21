@@ -2,7 +2,7 @@
 
 <form method="POST" action="{% url 'quiz:quiz_result' %}">
   {% csrf_token %}
- 
+
 
   {% for quiz in quizs %}
 
@@ -21,10 +21,12 @@
   <input type="radio" id="{{ quiz.d }}" name="{{ quiz.id }}" value="{{ quiz.d }}">
   <label for="{{ quiz.d }}">{{ quiz.d }}</label><br>
 
-  
+
   {% endfor %}
+
+  <input type="hidden" id="answers_id" name="answers_id" value="{{ answers_id }}">
+
 
   <input type="submit" value="Submit">
 
 </form>
-

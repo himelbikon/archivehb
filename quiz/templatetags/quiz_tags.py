@@ -6,11 +6,12 @@ register = template.Library()
 
 @register.filter
 def result_shower(mcq):
-	mcq_id = mcq[0]
-	chosen_ans = mcq[1]
+	serial_no = mcq[0]
+	mcq_id = mcq[1]
+	chosen_ans = mcq[2]
 	obj = get_object_or_404(HSC_Quiz, pk=mcq_id)
 
-	title = '<div>' + obj.question + '</div>'
+	title = '<div>' + str(serial_no) + '. ' + obj.question + '</div>'
 
 	if obj.answer == obj.a:
 		a = '<div class="right"> a) ' + obj.a + '</div>'
@@ -49,4 +50,3 @@ def result_shower(mcq):
 
 
 	return title + a + b + c + d + conclusion + explanation
-

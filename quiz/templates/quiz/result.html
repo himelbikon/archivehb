@@ -10,11 +10,12 @@
 
 <h1>This is result page</h1>
 
+<h1> {{ message }} </h1>
+
 {% for result in results %}
 
-{{ result|result_shower|safe }} <br><br>
+{{ result|result_shower|safe }} <br><br> <!--|result_shower|safe-->
 
 {% endfor %}
 
 </body>
-
