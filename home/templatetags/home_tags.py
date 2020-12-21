@@ -8,7 +8,7 @@ def js_list(ten_obj):
 	for x in ten_obj:
 		question = x.question + ' <br>'
 		a = 'a) ' + x.a + '&nbsp'*3
-		b = 'b) ' + x.b + ' <br>'
+		b = 'b) ' + x.b + '&nbsp'*3
 		c = 'c) ' + x.c + '&nbsp'*3
 		d = 'd) ' + x.d + ' <br>'
 		answer = 'Answer: ' + x.answer + ' <br>'

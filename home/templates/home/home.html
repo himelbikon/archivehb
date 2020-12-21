@@ -9,26 +9,33 @@
 		<div class="slide_text">Welcome!! No time to wait, Let's go!</div>
 	</div>
 
+	<ul>
+		<li class="front_block">
+			<h2>MCQ Exam: HSC Math 1st Paper</h2>
+			<h5><a href="{% url 'quiz:hsc_quiz' 'math1' '01' %}"><h4>Chapter 01</h4></a></h5>
+
+		</li>
+	</ul>
+
 		<script>
-		var index = -1;
-		var tem = '';
-		var arr_i = 0;
-		{{ ten_obj|js_list|safe }}
+			var index = -1;
+			var tem = '';
+			var arr_i = 0;
+			{{ ten_obj|js_list|safe }}
 
+			function nextFn () {
+			  index++;
+			  if (index > arr[arr_i].length - 1) {
+			    index = 0;
+			    tem = '';
+			    arr_i += 1;
+			    if (arr_i > arr.length - 1) { arr_i = 0 }
+			  }
 
-		function nextFn () {
-		  index++;
-		  if (index > arr[arr_i].length - 1) {
-		    index = 0;
-		    tem = '';
-		    arr_i += 1;
-		    if (arr_i > arr.length - 1) { arr_i = 0 }
-		  }
-
-		  tem += arr[arr_i][index]
-		  document.getElementById("slide").innerHTML ='<div id="slide"><img src="{% static "images/slide.jpg" %}"><div class="slide_text">' + tem + '</div></div>';
-		}
-		setInterval(nextFn, 100);
-			</script>
+			  tem += arr[arr_i][index]
+			  document.getElementById("slide").innerHTML ='<div id="slide"><img src="{% static "images/slide.jpg" %}"><div class="slide_text">' + tem + '</div></div>';
+			}
+			setInterval(nextFn, 100);
+		</script>
 
 {% endblock %}
