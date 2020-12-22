@@ -6,13 +6,20 @@
 </head>
 
 <body>
-	
-	
 
-		
+	{% block content %} {% endblock %}
+
+	<div class="front_block">
+		<h2>MCQ Exam: HSC Math 1st Paper</h2>
+
+		<a href="{% url 'quiz:hsc_quiz' 'math1' '05' %}">Chapter 05</a>
+
+	</div>
 
 
 
-{% block content %} {% endblock %}
+
+
+
 
 </body>

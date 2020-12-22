@@ -15,8 +15,9 @@ def hsc_quiz(request, sub, chap_no):
     quizs = []
     exist = []
     answers_id = []
+    quiz_num = 3
 
-    while len(quizs) + 1 <= 2:
+    while len(quizs) + 1 <= quiz_num:
         mcq = random.choice(raw_list)
         if not mcq in exist:
             mcq.question = str(len(quizs) + 1) + '. ' + mcq.question
@@ -39,25 +40,30 @@ def quiz_result(request):
         else:
             message = 'Thank you for joining with us!!'
 
+        #print(results)
         return render(request, 'quiz/result.html', {'results':results, 'message':message })
 
 def filter(querydict):
     raw = str(querydict).split('answers_id')
-    answers_id = eval(raw[-1].split("'")[2])
-    answer_paper = list(map(ans_spliter, raw[0].split(',')[1:-1]))
+    answer_ids = eval(raw[-1].split("'")[2])
+    mcq_ids = list(map(ans_spliter, raw[0].split(',')[1:-1]))
     results = []
     serial_no = 1
 
-    for x in answers_id:
-    	for y in answer_paper:
-    		if x == y[0]:
-    			results.append([serial_no, x, y[1]])
+    for ans_id in answer_ids:
+    	blank = True
+    	for mcq_id in mcq_ids:
+
+    		if mcq_id[0] == ans_id:
+    			results.append([serial_no, ans_id, mcq_id[1]])
     			serial_no += 1
-    			break
-    		else:
-    			results.append([serial_no, x, 'No option'])
-    			serial_no += 1
-    			break
+    			blank = False
+
+    	if blank:
+    		results.append([serial_no, ans_id, 'No option'])
+    		blank = False
+
+    #print(results)
     return results
 
 def ans_spliter(x):
