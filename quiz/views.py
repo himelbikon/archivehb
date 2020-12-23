@@ -15,12 +15,13 @@ def hsc_quiz(request, sub, chap_no):
     quizs = []
     exist = []
     answers_id = []
-    quiz_num = 3
+    quiz_num = 20
 
     while len(quizs) + 1 <= quiz_num:
         mcq = random.choice(raw_list)
         if not mcq in exist:
             mcq.question = str(len(quizs) + 1) + '. ' + mcq.question
+            #print(mcq.multiple_answer)
             quizs.append(mcq)
             exist.append(mcq)
 

@@ -6,7 +6,8 @@
 
   {% for quiz in quizs %}
 
- <p>{{ quiz.question }}</p>
+ <p>{{ quiz.question|safe }}</p>
+ <p> {{ quiz.multiple_answer|safe }} </p>
 
 
   <input type="radio" id="{{ quiz.a }}" name="{{ quiz.id }}" value="{{ quiz.a }}">

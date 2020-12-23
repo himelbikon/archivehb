@@ -11,7 +11,12 @@ def js_list(ten_obj):
 		b = 'b) ' + x.b + ' <br>'
 		c = 'c) ' + x.c + '&nbsp'*3
 		d = 'd) ' + x.d + ' <br>'
-		answer = 'Answer: ' + x.answer + ' <br>'
-		explanation = 'Explanation: ' + x.explanation[0:100] + '.....' + ' '*150
+		answer = 'সঠিক উত্তর: ' + x.answer + ' <br>'
+
+		if len(x.explanation) < 2:
+			explanation = ' '*150
+		else:
+			explanation = 'ব্যাখ্যা: ' + x.explanation[0:100] + '.....' + ' '*150
+
 		arr.append(question + a + b + c + d + answer + explanation)
 	return 'var arr = ' + str(arr) + ';'
