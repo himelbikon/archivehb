@@ -11,11 +11,22 @@ def quiz(request):
 
 def hsc_quiz(request, sub, chap_no):
     raws = HSC_Quiz.objects.all()
-    raw_list = list(raws)
+    raw_list = []
+    quiz_num = 20
     quizs = []
     exist = []
     answers_id = []
-    quiz_num = 20
+    subject = 'Unknown'
+
+    if sub == 'biology2':
+        subject = 'জীব বিজ্ঞান ২য়'
+
+    for raw in raws:
+        if raw.subject == sub and int(raw.chapter_no) == int(chap_no):
+            raw_list.append(raw)
+
+    if len(raw_list) < quiz_num:
+        return render(request, 'quiz/quiz.html', {'message': 'এই বিষয় বা অধ্যয়ের যথেষ্ট প্রশ্ন আমাদের সার্ভারে নেই'})
 
     while len(quizs) + 1 <= quiz_num:
         mcq = random.choice(raw_list)
@@ -28,7 +39,7 @@ def hsc_quiz(request, sub, chap_no):
     for x in quizs:
         answers_id.append(x.id)
 
-    return render(request, 'quiz/quiz.html', {'quizs':quizs, 'answers_id':answers_id})
+    return render(request, 'quiz/quiz.html', {'quizs':quizs, 'answers_id':answers_id, 'subject':subject})
 
 
 def quiz_result(request):

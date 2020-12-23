@@ -1,4 +1,8 @@
-<h1>This is your quiz</h1>
+<h1>{{ subject }}</h1>
+
+{% if message %}
+{{ message }}
+{% else %}
 
 <form method="POST" action="{% url 'quiz:quiz_result' %}">
   {% csrf_token %}
@@ -31,3 +35,5 @@
   <input type="submit" value="Submit">
 
 </form>
+
+{% endif %}
