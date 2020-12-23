@@ -58,6 +58,10 @@ body {
 	margin-right: 5%;
 }
 
+html {
+	background-color: #f0dbed;
+}
+
 /* This is MOBILE css area */
 @media screen and (max-width: 1000px) {
 	#slide img  {

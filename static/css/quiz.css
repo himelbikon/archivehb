@@ -1,0 +1,82 @@
+.exam_info {
+  text-align: center;
+  padding: 5px;
+  background: #6eda99;
+  border-bottom: 5px white solid;
+}
+
+.exam_info div {
+  display: inline-block;
+  padding: 1% 5%;
+  font-weight: bold;
+}
+
+body {
+  margin: 0.3% 5%;
+}
+
+form {
+  background: #d5f4f7;
+  padding: 10px 20px;
+}
+.mcq {
+  padding: 2px 5px;
+  padding-bottom: 10px;
+  margin: 1% 2%;
+  display: inline-block;
+  width: 43%;
+}
+
+.mcq div {
+  padding: 2px;
+}
+
+#submit {
+  width: 40%;
+  margin-left: 30%;
+  margin-right: 30%;
+  height: 50px;
+  font-size: 20px;
+  border-radius: 25px;
+  background: #9aaedc;
+}
+
+#submit:hover, #submit:active {
+  background: #8af192;
+}
+
+
+/* This is MOBILE css area */
+@media screen and (max-width: 1000px) {
+.exam_info {
+  font-size: 40px;
+}
+
+.exam_info div {
+  padding: 2px 20px;
+}
+
+.mcq {
+  display: inline;
+  width: 100%;
+  font-size: 40px;
+}
+
+form input {
+  height: 40px;
+  width: 40px;
+}
+
+#submit {
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
+  height: 75px;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+body {
+  margin: 0;
+}
+}

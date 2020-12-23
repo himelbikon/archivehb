@@ -1,39 +1,59 @@
-<h1>{{ subject }}</h1>
-
-{% if message %}
-{{ message }}
-{% else %}
-
-<form method="POST" action="{% url 'quiz:quiz_result' %}">
-  {% csrf_token %}
-
-
-  {% for quiz in quizs %}
-
- <p>{{ quiz.question|safe }}</p>
- <p> {{ quiz.multiple_answer|safe }} </p>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>বহুনির্বাচনি পরীক্ষ</title>
+    <link rel="stylesheet" href="{% static 'css/quiz.css' %}">
+  </head>
+  <body>
 
 
-  <input type="radio" id="{{ quiz.a }}" name="{{ quiz.id }}" value="{{ quiz.a }}">
-  <label for="{{ quiz.a }}">{{ quiz.a }}</label><br>
+    <div class="exam_info">
+      <h1>{{ subject }} বহুনির্বাচনি পরীক্ষা </h1>
+      <div>বহুনির্বাচনি প্রশ্ন সংখ্যাঃ {{ quiz_num }}</div>
+      <div>প্রতিটি প্রশ্নের জন্য সময় {{ each_quiz_time }}</div>
+      <div>মোট সময় ({{ quiz_num }}x{{ each_quiz_time }}) = {{ total_time }}</div>
+    </div>
 
-  <input type="radio" id="{{ quiz.b }}" name="{{ quiz.id }}" value="{{ quiz.b }}">
-  <label for="{{ quiz.b }}">{{ quiz.b }}</label><br>
+    {% if message %}
+    {{ message }}
+    {% else %}
 
-  <input type="radio" id="{{ quiz.c }}" name="{{ quiz.id }}" value="{{ quiz.c }}">
-  <label for="{{ quiz.c }}">{{ quiz.c }}</label><br>
-
-  <input type="radio" id="{{ quiz.d }}" name="{{ quiz.id }}" value="{{ quiz.d }}">
-  <label for="{{ quiz.d }}">{{ quiz.d }}</label><br>
-
-
-  {% endfor %}
-
-  <input type="hidden" id="answers_id" name="answers_id" value="{{ answers_id }}">
+    <form method="POST" action="{% url 'quiz:quiz_result' %}">
+      {% csrf_token %}
 
 
-  <input type="submit" value="Submit">
+      {% for quiz in quizs %}
+    <div class="mcq">
+     <div>{{ quiz.question|safe }}</div>
+     <div> {{ quiz.multiple_answer|safe }} </div>
 
-</form>
 
-{% endif %}
+      <input type="radio" id="{{ quiz.a }}" name="{{ quiz.id }}" value="{{ quiz.a }}">
+      <label for="{{ quiz.a }}">{{ quiz.a }}</label><br>
+
+      <input type="radio" id="{{ quiz.b }}" name="{{ quiz.id }}" value="{{ quiz.b }}">
+      <label for="{{ quiz.b }}">{{ quiz.b }}</label><br>
+
+      <input type="radio" id="{{ quiz.c }}" name="{{ quiz.id }}" value="{{ quiz.c }}">
+      <label for="{{ quiz.c }}">{{ quiz.c }}</label><br>
+
+      <input type="radio" id="{{ quiz.d }}" name="{{ quiz.id }}" value="{{ quiz.d }}">
+      <label for="{{ quiz.d }}">{{ quiz.d }}</label><br>
+    </div>
+
+
+      {% endfor %}
+
+      <input type="hidden" id="answers_id" name="answers_id" value="{{ answers_id }}">
+
+
+      <input id="submit" type="submit" value="পরীক্ষা শেষ করুন">
+
+    </form>
+
+    {% endif %}
+
+  </body>
+</html>

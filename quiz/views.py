@@ -16,10 +16,15 @@ def hsc_quiz(request, sub, chap_no):
     quizs = []
     exist = []
     answers_id = []
-    subject = 'Unknown'
+    subjects = {
+        'biology1': 'জীব বিজ্ঞান ১ম পত্র',
+        'biology2': 'জীব বিজ্ঞান ২য় পত্র'
+    }
 
-    if sub == 'biology2':
-        subject = 'জীব বিজ্ঞান ২য়'
+    if sub in subjects:
+        subject = subjects[sub]
+    else:
+        subject = 'Unknown'
 
     for raw in raws:
         if raw.subject == sub and int(raw.chapter_no) == int(chap_no):
@@ -39,7 +44,15 @@ def hsc_quiz(request, sub, chap_no):
     for x in quizs:
         answers_id.append(x.id)
 
-    return render(request, 'quiz/quiz.html', {'quizs':quizs, 'answers_id':answers_id, 'subject':subject})
+    main_dic = {
+                'quizs':quizs,
+                'answers_id':answers_id,
+                'subject':subject,
+                'quiz_num': quiz_num,
+                'each_quiz_time': str(40) + ' sec',
+                'total_time': str((quiz_num*40)%60) + ' min ' + str((quiz_num*40)%60) + ' sec',
+            }
+    return render(request, 'quiz/quiz.html', main_dic)
 
 
 def quiz_result(request):
