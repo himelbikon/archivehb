@@ -1,3 +1,21 @@
+.result_info {
+  text-align: center;
+  padding: 5px;
+  background: #6eda99;
+  border-bottom: 5px white solid;
+}
+
+.result_info div {
+  display: inline-block;
+  padding: 1% 5%;
+  font-weight: bold;
+}
+
+body {
+  margin: 0.3% 5%;
+  scroll-behavior: smooth;
+}
+
 .right{
 	color: green;
 }

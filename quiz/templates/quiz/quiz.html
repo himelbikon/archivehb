@@ -10,9 +10,10 @@
 
 
     <div class="exam_info">
+      <h1 id="url"> <a href="{% url 'home' %}">himelbikon.pythonanywhere.com</a> </h1>
       <h1>{{ subject }} বহুনির্বাচনি পরীক্ষা </h1>
       <div>বহুনির্বাচনি প্রশ্ন সংখ্যাঃ {{ quiz_num }}</div>
-      <div>প্রতিটি প্রশ্নের জন্য সময় {{ each_quiz_time }}</div>
+      <div>প্রতিটি প্রশ্নের জন্য সময় {{ each_quiz_time }} sec</div>
       <div>মোট সময় ({{ quiz_num }}x{{ each_quiz_time }}) = {{ total_time }}</div>
     </div>
 
@@ -20,38 +21,70 @@
     {{ message }}
     {% else %}
 
-    <form method="POST" action="{% url 'quiz:quiz_result' %}">
+    <form name="quiz_form" id="quiz_form" method="POST" action="{% url 'quiz:quiz_result' %}">
       {% csrf_token %}
 
 
       {% for quiz in quizs %}
-    <div class="mcq">
-     <div>{{ quiz.question|safe }}</div>
-     <div> {{ quiz.multiple_answer|safe }} </div>
+      <div class="mcq">
+       <div>{{ quiz.question|safe }}</div>
+       <div> {{ quiz.multiple_answer|safe }} </div>
 
 
-      <input type="radio" id="{{ quiz.a }}" name="{{ quiz.id }}" value="{{ quiz.a }}">
-      <label for="{{ quiz.a }}">{{ quiz.a }}</label><br>
+        <input type="radio" id="{{ quiz.a }}" name="{{ quiz.id }}" value="{{ quiz.a }}">
+        <label for="{{ quiz.a }}">{{ quiz.a }}</label><br>
 
-      <input type="radio" id="{{ quiz.b }}" name="{{ quiz.id }}" value="{{ quiz.b }}">
-      <label for="{{ quiz.b }}">{{ quiz.b }}</label><br>
+        <input type="radio" id="{{ quiz.b }}" name="{{ quiz.id }}" value="{{ quiz.b }}">
+        <label for="{{ quiz.b }}">{{ quiz.b }}</label><br>
 
-      <input type="radio" id="{{ quiz.c }}" name="{{ quiz.id }}" value="{{ quiz.c }}">
-      <label for="{{ quiz.c }}">{{ quiz.c }}</label><br>
+        <input type="radio" id="{{ quiz.c }}" name="{{ quiz.id }}" value="{{ quiz.c }}">
+        <label for="{{ quiz.c }}">{{ quiz.c }}</label><br>
 
-      <input type="radio" id="{{ quiz.d }}" name="{{ quiz.id }}" value="{{ quiz.d }}">
-      <label for="{{ quiz.d }}">{{ quiz.d }}</label><br>
-    </div>
+        <input type="radio" id="{{ quiz.d }}" name="{{ quiz.id }}" value="{{ quiz.d }}">
+        <label for="{{ quiz.d }}">{{ quiz.d }}</label><br>
+      </div>
 
 
       {% endfor %}
 
       <input type="hidden" id="answers_id" name="answers_id" value="{{ answers_id }}">
-
-
       <input id="submit" type="submit" value="পরীক্ষা শেষ করুন">
 
     </form>
+
+    <div id="timer"> Strating... </div>
+
+
+    <script>
+      var formal_time;
+      var time = {{ each_quiz_time }} * {{ quiz_num }};
+      var notification = 'সময় শেষ দয়া করে নিচের "পরীক্ষা শেষ করুন" বাটন প্রেস করে পরিক্ষা শেষ করুন';
+      var counter = 0;
+      var notice = '';
+      function timer() {
+            if (time >= 0) {
+              formal_time = (time - time%60) /60 + 'm ' + time%60 + 's'
+              document.getElementById("timer").innerHTML = formal_time;
+              time--;
+            } else {
+              window.scrollBy(0, 100);
+              clearInterval(lopper);
+              setInterval(scroller, 1);
+            }
+      }
+
+      var lopper = setInterval(timer, 1000); //quiz_form
+
+      function scroller() {
+        if (counter < notification.length) {
+          notice += notification[counter];
+          counter += 1;
+        }
+        document.getElementById("timer").innerHTML = notice;
+        window.scrollBy(0, 10);
+      }
+
+    </script>
 
     {% endif %}
 

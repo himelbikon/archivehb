@@ -49,7 +49,7 @@ def hsc_quiz(request, sub, chap_no):
                 'answers_id':answers_id,
                 'subject':subject,
                 'quiz_num': quiz_num,
-                'each_quiz_time': str(40) + ' sec',
+                'each_quiz_time': 40,
                 'total_time': str((quiz_num*40)%60) + ' min ' + str((quiz_num*40)%60) + ' sec',
             }
     return render(request, 'quiz/quiz.html', main_dic)
