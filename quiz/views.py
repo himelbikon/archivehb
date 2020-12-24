@@ -1,5 +1,5 @@
 from django.shortcuts import render
-#from django.http import QueryDict
+from django.shortcuts import get_object_or_404
 #from django.http import HttpResponse
 from .models import HSC_Quiz
 import random
@@ -56,6 +56,11 @@ def hsc_quiz(request, sub, chap_no):
 
 
 def quiz_result(request):
+    subjects = {
+        'biology1': 'জীব বিজ্ঞান ১ম পত্র',
+        'biology2': 'জীব বিজ্ঞান ২য় পত্র'
+    }
+
     if request.method == 'GET':
         return render(request, 'quiz/result.html', {'method':'This a GET method'})
     else:
@@ -65,8 +70,13 @@ def quiz_result(request):
         else:
             message = 'Thank you for joining with us!!'
 
-        #print(results)
-        return render(request, 'quiz/result.html', {'results':results, 'message':message })
+        sub = get_object_or_404(HSC_Quiz, pk=results[0][1])
+        if sub.subject in subjects:
+            subject = subjects[sub.subject]
+        else:
+            subject = 'Unknown'
+
+        return render(request, 'quiz/result.html', {'results':results, 'message':message, 'subject':subject})
 
 def filter(querydict):
     raw = str(querydict).split('answers_id')
@@ -74,19 +84,17 @@ def filter(querydict):
     mcq_ids = list(map(ans_spliter, raw[0].split(',')[1:-1]))
     results = []
     serial_no = 1
-
     for ans_id in answer_ids:
     	blank = True
     	for mcq_id in mcq_ids:
-
     		if mcq_id[0] == ans_id:
     			results.append([serial_no, ans_id, mcq_id[1]])
     			serial_no += 1
     			blank = False
-
     	if blank:
-    		results.append([serial_no, ans_id, 'No option'])
-    		blank = False
+            results.append([serial_no, ans_id, 'No option'])
+            serial_no += 1
+            blank = False
 
     #print(results)
     return results

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+
 .result_info {
   text-align: center;
   padding: 5px;
@@ -16,10 +18,34 @@ body {
   scroll-behavior: smooth;
 }
 
+#url {
+  padding: 0 0;
+  margin: 0 0;
+
+}
+
+#url a {
+  text-decoration: none;
+  font-family: 'Acme', sans-serif;
+  font-size: 50px;
+  color: green;
+}
+
+#url a:hover, a:active {
+  color: #0ea220;
+}
+
 .right{
 	color: green;
 }
 
 .wrong{
 	color: red;
+}
+
+@media screen and (max-width: 1000px) {
+  #url a {
+    font-size: 60px;
+  }
+
 }
