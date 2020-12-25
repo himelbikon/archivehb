@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 #from django.http import HttpResponse
 from .models import HSC_Quiz
-import random
+import random, re
 
 # Quiz views
 
@@ -60,6 +60,9 @@ def quiz_result(request):
         'biology1': 'জীব বিজ্ঞান ১ম পত্র',
         'biology2': 'জীব বিজ্ঞান ২য় পত্র'
     }
+    right = 0
+    wrong = 0
+    blank = 0
 
     if request.method == 'GET':
         return render(request, 'quiz/result.html', {'method':'This a GET method'})
@@ -76,12 +79,44 @@ def quiz_result(request):
         else:
             subject = 'Unknown'
 
-        return render(request, 'quiz/result.html', {'results':results, 'message':message, 'subject':subject})
+        mcq_num = len(results)
+        for res in results:
+            cho_ans = res[2]
+            ans = get_object_or_404(HSC_Quiz, pk=res[1]).answer
+
+            if cho_ans == ans:
+                right += 1
+            elif cho_ans == 'No option':
+                blank += 1
+            else:
+                wrong += 1
+
+        main_dic = {'results':results,
+                    'message':message,
+                    'subject':subject,
+                    'mcq_num':mcq_num,
+                    'right' : right,
+                    'wrong': wrong,
+                    'blank': blank,
+                }
+
+        return render(request, 'quiz/result.html', main_dic)
 
 def filter(querydict):
-    raw = str(querydict).split('answers_id')
-    answer_ids = eval(raw[-1].split("'")[2])
-    mcq_ids = list(map(ans_spliter, raw[0].split(',')[1:-1]))
+    #print(querydict)
+    string = str(querydict)
+    dic = re.findall("{.*}", string)
+    ans_dic = eval(*dic)
+    ans_dic.pop('csrfmiddlewaretoken')
+
+    answer_ids = eval(*ans_dic['answers_id'])
+    ans_dic.pop('answers_id')
+
+    mcq_ids = []
+    for ans in ans_dic:
+        mcq_ids.append([int(ans), *ans_dic[ans]])
+
+    #print(answer_ids, mcq_ids, '--------------------------------------------------------------------')
     results = []
     serial_no = 1
     for ans_id in answer_ids:
@@ -98,8 +133,3 @@ def filter(querydict):
 
     #print(results)
     return results
-
-def ans_spliter(x):
-	k, v = x.strip()[1:-2].split(':')
-	v = v.split("'")[1]
-	return [int(k[:-1]), v]

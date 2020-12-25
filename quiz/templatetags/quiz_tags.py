@@ -10,45 +10,44 @@ def result_shower(mcq):
 	mcq_id = mcq[1]
 	chosen_ans = mcq[2]
 	obj = get_object_or_404(HSC_Quiz, pk=mcq_id)
+	answer = obj.answer
 
 	title = '<div>' + str(serial_no) + '. ' + obj.question + '</div>'
+	multiple_answer = '<div>' + obj.multiple_answer + '</div>'
 	a = '<div> a) ' + obj.a + '</div>'
 	b = '<div> b) ' + obj.b + '</div>'
 	c = '<div> c) ' + obj.c + '</div>'
 	d = '<div> d) ' + obj.d + '</div>'
 
-	if obj.answer == obj.a:
-		a = '<div class="right"> a) ' + obj.a + '</div>'
-		chosen = 'a) ' + chosen_ans
-	elif obj.a == chosen_ans:
-		a = '<div class="wrong"> a) ' + obj.a + '</div>'
-		chosen = 'a) ' + chosen_ans
+	if answer == obj.a:
+		a = '<div class="answer"> a) ' + obj.a + ' </div>'
+	elif answer == obj.b:
+		b = '<div class="answer"> b) ' + obj.b + ' </div>'
+	elif answer == obj.c:
+		c = '<div class="answer"> c) ' + obj.c + ' </div>'
+	elif answer == obj.d:
+		d = '<div class="answer"> d) ' + obj.d + ' </div>'
 
-	if obj.answer == obj.b:
-		b = '<div class="right"> b) ' + obj.b + '</div>'
-		chosen = 'b) ' + chosen_ans
-	elif obj.b == chosen_ans:
-		b = '<div class="wrong"> b) ' + obj.b + '</div>'
-		chosen = 'b) ' + chosen_ans
+	if answer == obj.a and chosen_ans == obj.a:
+		a = '<div class="right"> a) ' + obj.a + ' </div>'
+	elif answer == obj.b and chosen_ans == obj.b:
+		b = '<div class="right"> b) ' + obj.b + ' </div>'
+	elif answer == obj.c and chosen_ans == obj.c:
+		c = '<div class="right"> c) ' + obj.c + ' </div>'
+	elif answer == obj.d and chosen_ans == obj.d:
+		d = '<div class="right"> d) ' + obj.d + ' </div>'
 
-	if obj.answer == obj.c:
-		c = '<div class="right"> c) ' + obj.c + '</div>'
-		chosen = 'c) ' + chosen_ans
-	elif obj.c == chosen_ans:
-		c = '<div class="wrong"> c) ' + obj.c + '</div>'
-		chosen = 'c) ' + chosen_ans
+	if answer != obj.a and chosen_ans == obj.a:
+		a = '<div class="wrong"> a) ' + obj.a + ' </div>'
+	elif answer != obj.b and chosen_ans == obj.b:
+		b = '<div class="wrong"> b) ' + obj.b + ' </div>'
+	elif answer != obj.c and chosen_ans == obj.c:
+		c = '<div class="wrong"> c) ' + obj.c + ' </div>'
+	elif answer != obj.d and chosen_ans == obj.d:
+		d = '<div class="wrong"> d) ' + obj.d + ' </div>'
 
-	if obj.answer == obj.d:
-		d = '<div class="right"> d) ' + obj.d + '</div>'
-		chosen = 'd) ' + chosen_ans
-	elif obj.d == chosen_ans:
-		d = '<div class="wrong"> d) ' + obj.d + '</div>'
-		chosen = 'd) ' + chosen_ans
 
-	if chosen_ans != 'No option':
-		chosen_ans = chosen
-
-	conclusion = '<div> Ans: <b>' + obj.answer + '</b>, you have selected: <b>' + chosen_ans + '</b></div>'
+	conclusion = '<div> Ans: <b>' + answer + '</b>, you have selected: <b>' + chosen_ans + '</b></div>'
 
 	if obj.explanation != '':
 		explanation = '<div> Explanation: ' + obj.explanation + '</div>'
@@ -56,4 +55,4 @@ def result_shower(mcq):
 		explanation = ''
 
 
-	return title + a + b + c + d + conclusion + explanation
+	return title + multiple_answer + a + b + c + d + conclusion + explanation

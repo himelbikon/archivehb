@@ -35,17 +35,66 @@ body {
   color: #0ea220;
 }
 
+#massage {
+  text-align: center;
+  background: #6eda99;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 0px;
+  border-radius: 30px;
+}
+
 .right{
-	color: green;
+	background: green;
+  display: inline-block;
+  padding: 2px;
+  border-radius: 2px;
 }
 
 .wrong{
-	color: red;
+	background: red;
+  display: inline-block;
+  padding: 2px 5px;
+  border-radius: 2px;
+}
+
+.answer {
+  font-weight: bold;
+  font-style: italic;
+  text-decoration: underline;
+  margin: 2px;
+}
+
+.ans_body {
+  border: 2px solid black;
+  padding: 20px;
 }
 
 @media screen and (max-width: 1000px) {
+  .ans_body {
+    font-size: 40px;
+  }
+
+  .result_info {
+    font-size: 40px;
+  }
+
+  .result_info div {
+    padding: 2px 20px;
+  }
+
   #url a {
     font-size: 60px;
+  }
+
+  #massage {
+    font-size: 70px;
+    width: 100%;
+  }
+
+  body {
+    margin: 0;
   }
 
 }
