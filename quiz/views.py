@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 #from django.http import HttpResponse
 from .models import HSC_Quiz
+from .forms import Guest_Quiz_Form
 import random, re
 
 # Quiz views
@@ -133,3 +134,9 @@ def filter(querydict):
 
     #print(results)
     return results
+
+def hsc_add(request):
+    if request.method == 'GET':
+        return render(request, 'quiz/hscadd.html', {'form': Guest_Quiz_Form()})
+    elif request.method == 'POST':
+        pass

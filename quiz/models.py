@@ -20,9 +20,13 @@ class HSC_Quiz(models.Model):
         return self.subject + ' ' + self.chapter_no + ' : ' + self.question
 
 
-
-
-'''    chapter_no = models.CharField(max_length=2)
-    chapter_name = models.CharField(max_length=50)
-    caption = models.CharField(max_length=150)
-    content = models.TextField()'''
+class Guest_Quiz(models.Model):
+    subject = models.CharField(max_length=50)
+    chapter_no = models.CharField(max_length=2, blank=True)
+    question = models.CharField(max_length=400)
+    a = models.CharField(max_length=200)
+    b = models.CharField(max_length=200)
+    c = models.CharField(max_length=200)
+    d = models.CharField(max_length=200)
+    answer = models.CharField(max_length=200)
+    explanation = models.TextField(blank=True)

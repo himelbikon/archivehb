@@ -20,6 +20,11 @@ from home import views
 urlpatterns = [
     path('secretadmin/', admin.site.urls),
     path('', views.home, name='home'),
+    path('login', views.loginuser, name='loginuser'),
+    path('signup', views.signupuser, name='signupuser'),
+    path('logout', views.logoutuser, name='logoutuser'),
+
+    # Apps
     path('note/', include('note.urls')),
     path('quiz/', include('quiz.urls')),
 ]
