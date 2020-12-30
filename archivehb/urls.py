@@ -19,6 +19,7 @@ from home import views
 
 urlpatterns = [
     path('secretadmin/', admin.site.urls),
+    path('dashboard/', views.dashboard, name='dashboard'),
     path('', views.home, name='home'),
     path('login', views.loginuser, name='loginuser'),
     path('signup', views.signupuser, name='signupuser'),

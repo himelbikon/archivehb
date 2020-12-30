@@ -25,6 +25,9 @@ def home(request):
 
     return render(request, 'home/home.html', {'ten_obj':ten_obj})
 
+def dashboard(request):
+    return render(request, 'home/dashboard.html')
+
 def loginuser(request):
     if request.method == 'GET':
         return render(request, 'home/loginuser.html', {'form': AuthenticationForm()})

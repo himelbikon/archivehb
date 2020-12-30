@@ -3,12 +3,16 @@ from django.shortcuts import get_object_or_404, redirect
 #from django.http import HttpResponse
 from .models import HSC_Quiz, Guest_Quiz
 from .forms import Guest_Quiz_Form
+from django.contrib.auth.decorators import login_required
 import random, re
 
 # Quiz views
 
 def quiz(request):
     return render(request, 'quiz/home.html')
+
+def admin(request):
+    return render(request, 'quiz/quiz_admin.html')
 
 def hsc_quiz(request, sub, chap_no):
     raws = HSC_Quiz.objects.all()
@@ -135,6 +139,7 @@ def filter(querydict):
     #print(results)
     return results
 
+@login_required
 def hsc_add(request):
     if request.method == 'GET':
         quizs = Guest_Quiz.objects.all()

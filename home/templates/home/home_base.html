@@ -21,14 +21,18 @@
 	<div id="footer">
 		{% if request.user.is_authenticated %}
 
-		<div>Logged in as {{request.user}}</div>
-		<div>
-			<form class="" action="{% url 'logoutuser' %}" method="POST">
-				{% csrf_token %}
-				<button type="submit">Logout</button>
-			</form>
-	 	</div>
-		<div><a href="{% url 'quiz:hsc_add' %}">Add HSC Quiz</a></div>
+			<div>Logged in as {{request.user}}</div>
+			<div>
+				<form class="" action="{% url 'logoutuser' %}" method="POST">
+					{% csrf_token %}
+					<button type="submit">Logout</button>
+				</form>
+		 	</div>
+			<div><a href="{% url 'quiz:hsc_add' %}">Add HSC Quiz</a></div>
+
+			{% if user.is_superuser %}
+			<div><a href="{% url 'dashboard' %}">Dashboard</a></div>
+			{% endif %}
 
 		{% else %}
 			<div><a href="{% url 'loginuser' %}">Login</a></div>
