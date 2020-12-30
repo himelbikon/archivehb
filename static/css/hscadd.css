@@ -1,0 +1,42 @@
+body {
+  margin: 20px 100px;
+}
+
+form {
+  border: 2px solid black;
+  padding: 20px;
+}
+
+@media screen and (max-width: 1000px) {
+  body {
+    margin: 0;
+  }
+
+  body h1 {
+    font-size: 80px;
+  }
+
+  form {
+    font-size: 60px;
+  }
+
+  form input {
+    height: 80px;
+    width: 65%;
+    border: 2px solid black;
+    font-size: 70px;
+  }
+
+  form textarea {
+    height: 200px;
+    width: 100%;
+    border: 2px solid black;
+    font-size: 70px;
+  }
+
+  form button {
+    height: 100px;
+    width: 100%;
+    font-size: 80px;
+  }
+}

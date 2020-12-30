@@ -1,7 +1,32 @@
-<h1>HSC Adding page</h1>
+<!DOCTYPE html>
+{% load static %}
 
-<form class="" method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Submit</button>
-</form>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Add HSC Quiz here</title>
+    <link rel="stylesheet" href="{% static 'css/hscadd.css' %}">
+  </head>
+  <body>
+    <h1>Add HSC MCQ question here</h1>
+    <h1><a href="{% url 'home' %}">Home</a></h1>
+
+    <form class="" method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Submit</button>
+    </form>
+
+    {% for quiz in quizs %}
+
+    <h2>{{quiz.question}}</h2>
+    <div> {{quiz.a}} </div>
+    <div> {{quiz.b}} </div>
+    <div> {{quiz.c}} </div>
+    <div> {{quiz.d}} </div>
+    <div> {{quiz.answer}} </div>
+    <div> {{quiz.explanation}} </div>
+
+    {% endfor %}
+  </body>
+</html>
