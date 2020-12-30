@@ -84,6 +84,18 @@ body {
     padding: 2px 20px;
   }
 
+  .right {
+    font-size: 50px;
+  }
+
+  .wrong {
+    font-size: 50px;
+  }
+
+  .answer {
+    font-size: 50px;
+  }
+
   #url a {
     font-size: 60px;
   }

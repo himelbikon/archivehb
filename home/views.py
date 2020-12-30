@@ -27,18 +27,18 @@ def home(request):
 
 def loginuser(request):
     if request.method == 'GET':
-        return render(request, 'home/login.html', {'form': AuthenticationForm()})
+        return render(request, 'home/loginuser.html', {'form': AuthenticationForm()})
     elif request.method == 'POST':
         user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
         if user is None:
-            return render(request, 'home/login.html', {'form': AuthenticationForm(), 'message': 'Username or Password is incorrect'})
+            return render(request, 'home/loginuser.html', {'form': AuthenticationForm(), 'message': 'Username or Password is incorrect'})
         else:
             login(request, user)
             return redirect('home')
 
 def signupuser(request):
     if request.method == 'GET':
-        return render(request, 'home/signup.html') #, {'form': UserCreationForm()})
+        return render(request, 'home/signupuser.html') #, {'form': UserCreationForm()})
 
 def logoutuser(request):
     if request.method == 'POST':
