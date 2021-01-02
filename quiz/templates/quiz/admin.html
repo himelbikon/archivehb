@@ -1,0 +1,27 @@
+<!DOCTYPE html> <!-- This is quiz admin -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+
+    {% for quiz in quizs %}
+
+    <div> {{quiz}} </div>
+    <div> {{quiz.a}} </div>
+    <div> {{quiz.b}} </div>
+    <div> {{quiz.c}} </div>
+    <div> {{quiz.d}} </div>
+    <div> {{quiz.answer}} </div>
+    <div> {{quiz.explanation}} </div> <br>
+
+    {% endfor %}
+
+    <form class="" method="POST">
+      {% csrf_token %}
+      <button type="submit" name="submit">Submit</button>
+    </form> <br>
+
+  </body>
+</html>

@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404, redirect
 #from django.http import HttpResponse
 from .models import HSC_Quiz, Guest_Quiz
-from .forms import Guest_Quiz_Form
+from .forms import Guest_Quiz_Form, HSC_Quiz_Form
 from django.contrib.auth.decorators import login_required
 import random, re
 
@@ -12,7 +12,18 @@ def quiz(request):
     return render(request, 'quiz/home.html')
 
 def admin(request):
-    return render(request, 'quiz/quiz_admin.html')
+    if request.user.is_authenticated and request.user.is_superuser:
+        if request.method == 'GET':
+            quizs = HSC_Quiz.objects.all()
+            quizs = list(quizs)
+            quizs.reverse()
+            return render(request, 'quiz/admin.html', {'quizs': quizs})
+        else:
+            hsc_quiz = HSC_Quiz_Form(request.POST)
+            hsc_quiz.save()
+            return redirect('quiz:admin')
+    else:
+        return redirect('loginuser')
 
 def hsc_quiz(request, sub, chap_no):
     raws = HSC_Quiz.objects.all()

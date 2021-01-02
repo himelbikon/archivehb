@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Guest_Quiz
+from .models import Guest_Quiz, HSC_Quiz
 
 class Guest_Quiz_Form(ModelForm):
     class Meta:
@@ -7,9 +7,7 @@ class Guest_Quiz_Form(ModelForm):
         fields = ['subject', 'chapter_no', 'question', 'a', 'b', 'c', 'd', 'answer', 'explanation']
 
 
-
-
-''' class TodoForm(ModelForm):
+class HSC_Quiz_Form(ModelForm):
     class Meta:
-        model = Todo
-        fields = ['title', 'memo', 'important'] '''
+        model = HSC_Quiz
+        fields = ['subject', 'chapter_no', 'stimulation', 'question', 'multiple_answer', 'a', 'b', 'c', 'd', 'answer', 'explanation']
