@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404, redirect
 #from django.http import HttpResponse
-from .models import HSC_Quiz, Guest_Quiz
-from .forms import Guest_Quiz_Form, HSC_Quiz_Form
+from .models import HSC_Quiz
+from .forms import HSC_Quiz_Form
 from django.contrib.auth.decorators import login_required
 import random, re
 
@@ -153,11 +153,8 @@ def filter(querydict):
 @login_required
 def hsc_add(request):
     if request.method == 'GET':
-        quizs = Guest_Quiz.objects.all()
-        quizs = list(quizs)
-        quizs.reverse()
-        return render(request, 'quiz/hscadd.html', {'form': Guest_Quiz_Form(), 'quizs': quizs})
+        return render(request, 'quiz/hscadd.html', {'form': HSC_Quiz_Form()})
     elif request.method == 'POST':
-        guest_quiz = Guest_Quiz_Form(request.POST)
-        guest_quiz.save()
+        hsc_quiz = Guest_Quiz_Form(request.POST)
+        hsc_quiz.save()
         return redirect('quiz:hsc_add')

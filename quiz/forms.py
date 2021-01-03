@@ -1,10 +1,5 @@
 from django.forms import ModelForm
-from .models import Guest_Quiz, HSC_Quiz
-
-class Guest_Quiz_Form(ModelForm):
-    class Meta:
-        model = Guest_Quiz
-        fields = ['subject', 'chapter_no', 'question', 'a', 'b', 'c', 'd', 'answer', 'explanation']
+from .models import HSC_Quiz
 
 
 class HSC_Quiz_Form(ModelForm):

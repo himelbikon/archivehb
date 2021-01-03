@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/hscadd.css' %}">
   </head>
   <body>
+
     <h1>Add HSC MCQ question here</h1>
     <h1><a href="{% url 'home' %}">Home</a></h1>
 
@@ -17,16 +18,10 @@
       <button type="submit">Submit</button>
     </form>
 
-    {% for quiz in quizs %}
+    <form class="" method="POST">
+      {% csrf_token %}
+      
+    </form>
 
-    <h2>{{quiz.question}}</h2>
-    <div> {{quiz.a}} </div>
-    <div> {{quiz.b}} </div>
-    <div> {{quiz.c}} </div>
-    <div> {{quiz.d}} </div>
-    <div> {{quiz.answer}} </div>
-    <div> {{quiz.explanation}} </div>
-
-    {% endfor %}
   </body>
 </html>

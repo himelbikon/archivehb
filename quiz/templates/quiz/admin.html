@@ -1,27 +1,28 @@
-<!DOCTYPE html> <!-- This is quiz admin -->
+<!DOCTYPE html> <!-- This is quiz admin --> {% load static %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title> {{title}} </title>
+    <link rel="stylesheet" href="{% static 'css/quiz/admin.css' %}">
   </head>
   <body>
 
     {% for quiz in quizs %}
+      <div id="mcq">
+        <div>{{quiz.id}}. {{quiz.question|safe}} </div>
+        <div> {{quiz.multiple_answer|safe}} </div>
 
-    <div> {{quiz.question|safe}} </div>
-    <div>a) {{quiz.a|safe}} </div>
-    <div>b) {{quiz.b|safe}} </div>
-    <div>c) {{quiz.c|safe}} </div>
-    <div>d) {{quiz.d|safe}} </div>
-    <div>Answer: {{quiz.answer|safe}} </div>
-    <div>Explanation: {{quiz.explanation|safe}} </div> <br>
+        <div>a) {{quiz.a|safe}} &nbsp&nbsp b) {{quiz.b|safe}} &nbsp&nbsp c) {{quiz.c|safe}} &nbsp&nbsp d) {{quiz.d|safe}}</div>
 
+        <div>Answer: {{quiz.answer|safe}} </div>
+        <div>Explanation: {{quiz.explanation|safe}} </div>
+      </div> <br>
     {% endfor %}
 
-    <form class="" method="POST">
+    <form id="add_form" method="POST">
       {% csrf_token %}
+    </form>
 
-    </form> <br>
 
   </body>
 </html>
