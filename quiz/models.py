@@ -4,7 +4,7 @@ from django.db import models
 
 class HSC_Quiz(models.Model):
     subject = models.CharField(max_length=50)
-    chapter_name = models.CharField(max_length=50)
+    chapter_name = models.CharField(max_length=50, blank=True)
     chapter_no = models.CharField(max_length=2, blank=True)
     stimulation = models.TextField(blank=True)
     question = models.CharField(max_length=400)

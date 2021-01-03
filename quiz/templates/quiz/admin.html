@@ -8,19 +8,19 @@
 
     {% for quiz in quizs %}
 
-    <div> {{quiz}} </div>
-    <div> {{quiz.a}} </div>
-    <div> {{quiz.b}} </div>
-    <div> {{quiz.c}} </div>
-    <div> {{quiz.d}} </div>
-    <div> {{quiz.answer}} </div>
-    <div> {{quiz.explanation}} </div> <br>
+    <div> {{quiz.question|safe}} </div>
+    <div>a) {{quiz.a|safe}} </div>
+    <div>b) {{quiz.b|safe}} </div>
+    <div>c) {{quiz.c|safe}} </div>
+    <div>d) {{quiz.d|safe}} </div>
+    <div>Answer: {{quiz.answer|safe}} </div>
+    <div>Explanation: {{quiz.explanation|safe}} </div> <br>
 
     {% endfor %}
 
     <form class="" method="POST">
       {% csrf_token %}
-      <button type="submit" name="submit">Submit</button>
+
     </form> <br>
 
   </body>
