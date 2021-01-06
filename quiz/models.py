@@ -25,7 +25,7 @@ class HSC_Quiz(models.Model):
 class Subject(models.Model):
     code_name = models.CharField(max_length=50)
     formal_name = models.CharField(max_length=50)
-    chap_no_name = models.TextField(blank=True)
+    chap_names = models.TextField(blank=True)
 
     def __str__(self):
-        return self.formal_name
+        return self.code_name

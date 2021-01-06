@@ -1,4 +1,4 @@
-<!DOCTYPE html> <!-- This is quiz admin --> {% load static %}
+<!DOCTYPE html> <!-- This is quiz admin --> {% load static %} {% load quiz_tags %}
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -7,21 +7,16 @@
   </head>
   <body>
 
-    {% for quiz in quizs %}
-      <div id="mcq">
-        <div>{{quiz.id}}. {{quiz.question|safe}} </div>
-        <div> {{quiz.multiple_answer|safe}} </div>
+    <h2>Total {{total}} quizs and Subjects are: {% for subject in all_subs %} <li>{{subject}}</li> {% endfor %}</h2>
 
-        <div>a) {{quiz.a|safe}} &nbsp&nbsp b) {{quiz.b|safe}} &nbsp&nbsp c) {{quiz.c|safe}} &nbsp&nbsp d) {{quiz.d|safe}}</div>
 
-        <div>Answer: {{quiz.answer|safe}} </div>
-        <div>Explanation: {{quiz.explanation|safe}} </div>
-      </div> <br>
+    {% for tem in tem_list %}
+
+    <table>
+      {{tem|quizs_table|safe }}
+    </table>
+
     {% endfor %}
-
-    <form id="add_form" method="POST">
-      {% csrf_token %}
-    </form>
 
 
   </body>

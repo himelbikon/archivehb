@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404, redirect
-#from django.http import HttpResponse
-from .models import HSC_Quiz
+from .models import HSC_Quiz, Subject
 from .forms import HSC_Quiz_Form
 from django.contrib.auth.decorators import login_required
+from collections import defaultdict
 import random, re
 
 # Quiz views
@@ -16,12 +16,27 @@ def admin(request):
         if request.method == 'GET':
             quizs = HSC_Quiz.objects.all()
             quizs = list(quizs)
-            quizs.reverse()
-            return render(request, 'quiz/admin.html', {'quizs': quizs})
-        else:
-            hsc_quiz = HSC_Quiz_Form(request.POST)
-            hsc_quiz.save()
-            return redirect('quiz:admin')
+            subjects = Subject.objects.all()
+            tem_list = []
+            total = len(quizs)
+            count_dic = defaultdict(int)
+            all_subs = set()
+
+            for subject in subjects:
+                for quiz in quizs:
+                    if quiz.subject == subject.code_name:
+                        count_dic[quiz.subject] += 1
+                        if quiz.chapter_no == '':
+                            count_dic[quiz.chapter_name] += 1
+                        else:
+                            count_dic[quiz.chapter_no] += 1
+
+                    all_subs.add(quiz.subject)
+
+                tem_list.append(dict(sorted(count_dic.copy().items())))
+                count_dic.clear()
+
+            return render(request, 'quiz/admin.html', {'total': total, 'tem_list': tem_list, 'all_subs': all_subs})
     else:
         return redirect('loginuser')
 
@@ -155,6 +170,6 @@ def hsc_add(request):
     if request.method == 'GET':
         return render(request, 'quiz/hscadd.html', {'form': HSC_Quiz_Form()})
     elif request.method == 'POST':
-        hsc_quiz = Guest_Quiz_Form(request.POST)
+        hsc_quiz = HSC_Quiz_Form(request.POST)
         hsc_quiz.save()
         return redirect('quiz:hsc_add')

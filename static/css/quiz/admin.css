@@ -1,9 +1,9 @@
-#mcq {
-  display: inline;
-  padding: 20px;
-  margin: 5px;
+table {
+  border: 2px solid black;
+  margin: 30px;
 }
 
-body {
-  margin: 0 100px;
+td {
+  padding: 5px 10px;
+  border: 2px solid black;
 }

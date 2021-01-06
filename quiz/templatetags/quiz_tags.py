@@ -56,3 +56,16 @@ def result_shower(mcq):
 
 
 	return title + multiple_answer + a + b + c + d + conclusion + explanation
+
+
+@register.filter
+def quizs_table(chapters):
+	chapter_no = '<tr> '
+	quiz_num = '<tr> '
+	for key in chapters:
+		chapter_no += '<td>' + str(key) + '</td>'
+		quiz_num += '<td>' + str(chapters[key]) + '</td>'
+
+	chapter_no += '</tr>'
+	quiz_num += '</tr>'
+	return chapter_no + quiz_num
