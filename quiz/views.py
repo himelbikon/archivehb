@@ -3,12 +3,15 @@ from django.shortcuts import get_object_or_404, redirect
 from .models import HSC_Quiz, Subject
 from .forms import HSC_Quiz_Form
 from django.contrib.auth.decorators import login_required
+from home.extra import visitor_log
+from threading import Thread
 from collections import defaultdict
 import random, re
 
 # Quiz views
 
 def quiz(request):
+    visitors(request)
     return render(request, 'quiz/home.html')
 
 def admin(request):
@@ -36,8 +39,10 @@ def admin(request):
                 tem_list.append(dict(sorted(count_dic.copy().items())))
                 count_dic.clear()
 
+            visitors(request)
             return render(request, 'quiz/admin.html', {'total': total, 'tem_list': tem_list, 'all_subs': all_subs})
     else:
+        visitors(request)
         return redirect('loginuser')
 
 def hsc_quiz(request, sub, chap_no):
@@ -62,6 +67,7 @@ def hsc_quiz(request, sub, chap_no):
             raw_list.append(raw)
 
     if len(raw_list) < quiz_num:
+        visitors(request)
         return render(request, 'quiz/quiz.html', {'message': 'এই বিষয় বা অধ্যয়ের যথেষ্ট প্রশ্ন আমাদের সার্ভারে নেই'})
 
     while len(quizs) + 1 <= quiz_num:
@@ -83,6 +89,7 @@ def hsc_quiz(request, sub, chap_no):
                 'each_quiz_time': 40,
                 'total_time': str((quiz_num*40)%60) + ' min ' + str((quiz_num*40)%60) + ' sec',
             }
+    visitors(request)
     return render(request, 'quiz/quiz.html', main_dic)
 
 
@@ -96,6 +103,7 @@ def quiz_result(request):
     blank = 0
 
     if request.method == 'GET':
+        visitors(request)
         return render(request, 'quiz/result.html', {'method':'This a GET method'})
     else:
         results = filter(request.POST)
@@ -130,7 +138,7 @@ def quiz_result(request):
                     'wrong': wrong,
                     'blank': blank,
                 }
-
+        visitors(request)
         return render(request, 'quiz/result.html', main_dic)
 
 def filter(querydict):
@@ -168,8 +176,14 @@ def filter(querydict):
 @login_required
 def hsc_add(request):
     if request.method == 'GET':
+        visitors(request)
         return render(request, 'quiz/hscadd.html', {'form': HSC_Quiz_Form()})
     elif request.method == 'POST':
         hsc_quiz = HSC_Quiz_Form(request.POST)
         hsc_quiz.save()
+        visitors(request)
         return redirect('quiz:hsc_add')
+
+def visitors(request):
+    extra = Thread(target=lambda: visitor_log(request))
+    extra.start()
