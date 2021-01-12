@@ -52,18 +52,14 @@ def hsc_quiz(request, sub, chap_no):
     quizs = []
     exist = []
     answers_id = []
-    subjects = {
-        'biology1': 'জীব বিজ্ঞান ১ম পত্র',
-        'biology2': 'জীব বিজ্ঞান ২য় পত্র'
-    }
+    subject = 'Unknown'
 
-    if sub in subjects:
-        subject = subjects[sub]
-    else:
-        subject = 'Unknown'
+    sub_obj = Subject.objects.all()
+    for obj in sub_obj:
+        if obj.code_name == sub:
+            subject = obj.formal_name
 
     for raw in raws:
-
         try:
             if raw.subject == sub and int(raw.chapter_no) == int(chap_no):
                 raw_list.append(raw)
