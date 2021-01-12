@@ -1,13 +1,17 @@
-#from home.forms import VH_Form
+from .models import Visitor_History
 import os
 
 
 def visitor_log(request):
-    if not os.path.exists('logs'):
-        os.mkdir('logs')
-        print('creates new')
+	x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+	if x_forwarded_for:
+		ip = x_forwarded_for.split(',')[0]
+	else:
+		ip = request.META.get('REMOTE_ADDR')
 
-    file = open('logs/v_logs.txt', 'a')
-    file.write(str(request) + '\n')
-    file.close()
-    print('------------------------------------------------------------------')
+	#print(ip, '----------------------------------------')
+
+
+	log = Visitor_History(ip=ip)
+	log.save()
+

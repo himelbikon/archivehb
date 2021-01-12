@@ -63,8 +63,13 @@ def hsc_quiz(request, sub, chap_no):
         subject = 'Unknown'
 
     for raw in raws:
-        if raw.subject == sub and int(raw.chapter_no) == int(chap_no):
-            raw_list.append(raw)
+
+        try:
+            if raw.subject == sub and int(raw.chapter_no) == int(chap_no):
+                raw_list.append(raw)
+        except:
+            if raw.subject == sub and raw.chapter_name.lower() == chap_no.lower():
+                raw_list.append(raw)
 
     if len(raw_list) < quiz_num:
         visitors(request)
